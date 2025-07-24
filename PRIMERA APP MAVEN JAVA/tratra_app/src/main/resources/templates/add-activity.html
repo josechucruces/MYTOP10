@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nueva Actividad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 40px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 80px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .btn-link {
+            display: inline-block;
+            margin-left: 15px;
+            font-size: 1rem;
+            color: #007bff;
+            text-decoration: none;
+            vertical-align: middle;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Agregar Nueva Actividad</h2>
+
+        <form th:action="@{/activities/add}" method="post" enctype="multipart/form-data">
+            <label for="name">Nombre de la actividad:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="description">Descripción:</label>
+            <textarea id="description" name="description"></textarea>
+
+            <label for="date">Fecha:</label>
+            <input type="date" id="date" name="date" required>
+
+			<label for="activityType">Tipo de actividad:</label>
+			<select id="activityType" name="activityType" required>
+			    <option value="">--Selecciona--</option>
+			    <option value="Correr">Correr</option>
+			    <option value="Bicicleta">Bicicleta</option>
+			    <option value="Nadar">Nadar</option>
+			    <option value="Caminar">Caminar</option>
+			</select>
+
+            <label for="gpxFile">Archivo GPX:</label>
+            <input type="file" id="gpxFile" name="gpxFile" accept=".gpx" required>
+
+            <button type="submit">Guardar</button>
+            <a th:href="@{/home}" class="btn-link">Volver al panel</a>
+        </form>
+    </div>
+</body>
+</html>

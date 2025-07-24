@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Perfil de Usuario</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .profile-container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .profile-container h1 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .profile-info {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .profile-info p {
+            background: #f9fafb;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .profile-info p strong {
+            display: inline-block;
+            width: 120px;
+            color: #222;
+        }
+        a.button-back {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 25px;
+            background-color: #4A90E2;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        a.button-back:hover {
+            background-color: #357ABD;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Perfil de <span th:text="${user.fullName}">Usuario</span></h1>
+
+        <div class="profile-info">
+            <div class="profile-avatar" style="text-align:center; margin-bottom: 20px;">
+                <img th:src="${user.avatarPath != null} ? @{/avatars/{avatar}(avatar=${user.avatarPath})} : @{/images/default-avatar.png}" 
+                     alt="Avatar de Usuario" 
+                     style="width:150px; height:150px; border-radius:50%; object-fit:cover;"/>
+            </div>
+
+            <p><strong>Nombre de usuario:</strong> <span th:text="${user.username}">username</span></p>
+            <p><strong>Nombre completo:</strong> <span th:text="${user.fullName}">Full Name</span></p>
+            <!-- Agrega más campos si quieres -->
+            <div style="text-align: center; margin-top: 25px;">
+              <a href="/profile/edit" class="button-back">
+                Editar Perfil
+              </a>
+            </div>
+       </div>
+
+        <a href="/home" class="button-back">Volver al inicio</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+/Users/josechuair/eclipse-workspace/eclipse-workspace-25/tratra_app/src/main/java/com/tratra/tratra_app/TratraAppApplication.java
+/Users/josechuair/eclipse-workspace/eclipse-workspace-25/tratra_app/src/main/java/com/tratra/tratra_app/config/SecurityConfig.java
+/Users/josechuair/eclipse-workspace/eclipse-workspace-25/tratra_app/src/main/java/com/tratra/tratra_app/controller/UserController.java
+/Users/josechuair/eclipse-workspace/eclipse-workspace-25/tratra_app/src/main/java/com/tratra/tratra_app/entity/Activity.java
+/Users/josechuair/eclipse-workspace/eclipse-workspace-25/tratra_app/src/main/java/com/tratra/tratra_app/entity/User.java
+/Users/josechuair/eclipse-workspace/eclipse-workspace-25/tratra_app/src/main/java/com/tratra/tratra_app/repository/UserRepository.java
+/Users/josechuair/eclipse-workspace/eclipse-workspace-25/tratra_app/src/main/java/com/tratra/tratra_app/service/UserService.java

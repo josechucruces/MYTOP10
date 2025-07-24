@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .register-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 320px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .link {
+            margin-top: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Crear cuenta</h2>
+
+        <form method="post" th:action="@{/register}">
+            <label>Nombre de usuario:</label>
+            <input type="text" name="username" required>
+
+            <label>Nombre completo:</label>
+            <input type="text" name="fullName" required>
+
+            <label>Contraseña:</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Registrarse</button>
+        </form>
+
+        <p th:if="${error}" th:text="${error}" class="error"></p>
+
+        <div class="link">
+            <p>¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a></p>
+        </div>
+    </div>
+</body>
+</html>

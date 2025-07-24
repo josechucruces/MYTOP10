@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mis Actividades</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9f9f9;
+            margin: 20px;
+            color: #333;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #2980b9;
+            color: #fff;
+        }
+
+        thead th {
+            padding: 12px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f4f6f8;
+        }
+
+        tbody td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            margin: 10px 10px 0 0;
+            background-color: #2980b9;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #1f5f8b;
+        }
+
+        .empty-message {
+            font-style: italic;
+            color: #777;
+            background-color: #e7f1fb;
+            padding: 15px;
+            border-radius: 6px;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Mis Actividades</h2>
+
+    <div th:if="${activities.isEmpty()}" class="empty-message">
+        <p>No has añadido ninguna actividad aún.</p>
+    </div>
+
+    <div th:unless="${activities.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+					<th>Nombre</th>
+					<th>Descripción</th>
+					<th>Fecha</th>
+					<th>Elevación ganada (m)</th>
+					<th>Kms recorridos</th>
+					<th>Tipo de ruta</th>
+					<th>Archivo GPX</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="activity : ${activities}">
+                    <td th:text="${activity.name}">Nombre</td>
+                    <td th:text="${activity.description}">Descripción</td>
+                    <td th:text="${#temporals.format(activity.date, 'dd/MM/yyyy')}">Fecha</td>
+					<td th:text="${activity.elevationGain}">0</td>
+					<td th:text="${activity.distanceKm}">0</td>
+					<td th:text="${activity.activityType}">Tipo</td>
+					<td>
+                        <a th:href="@{/activities/view-gpx/{id}(id=${activity.id})}">
+                            Ver mapa
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>
+        <a class="btn" th:href="@{/activities/add}">Añadir nueva actividad</a>
+        <a class="btn" th:href="@{/home}">Volver al panel</a>
+    </p>
+</body>
+</html>

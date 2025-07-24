@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Iniciar sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+		.logo-container {
+		    text-align: center;
+		    padding: 10px 0;
+		    background-color: #fff;
+		}
+
+		.logo-container img {
+		    width: 400px;
+		    height: auto;
+		    display: inline-block;
+		}
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .link {
+            margin-top: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+		<div class="logo-container">
+			<img th:src="@{/images/Logo2.png}" alt="Logo TRATRA" />
+		</div>			
+        <h2>Iniciar sesión</h2>
+
+        <form th:action="@{/login}" method="post">
+            <label>Usuario:</label>
+            <input type="text" name="username" required>
+
+            <label>Contraseña:</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p th:if="${param.error}" class="message">Usuario o contraseña incorrectos</p>
+        <p th:if="${param.logout}" class="message" style="color:green;">Sesión cerrada correctamente</p>
+
+        <div class="link">
+            <p>¿No tienes cuenta? <a th:href="@{/register}">Regístrate</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Editar Perfil</title>
+
+    <!-- Bootstrap CSS si lo quieres -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+    <!-- Cropper.js CSS -->
+    <link href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet"/>
+
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 35px 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #007bff;
+        }
+        label {
+            color: #007bff;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            width: 100%;
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 14px;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .cancel-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .cancel-link:hover {
+            text-decoration: underline;
+        }
+        .alert-success {
+            margin-top: 20px;
+            padding: 12px;
+            font-size: 0.95rem;
+        }
+        .avatar-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #avatarPreview {
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 15px;
+            border: 2px solid #007bff;
+        }
+        #cropButton {
+            margin: 10px auto 20px;
+            display: block;
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #cropButton:hover {
+            background-color: #357ABD;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Editar Perfil</h2>
+
+        <form th:action="@{/profile/edit}" method="post" enctype="multipart/form-data" id="editProfileForm">
+            <label for="fullName">Nombre completo</label>
+            <input type="text" id="fullName" name="fullName" th:value="${user.fullName}" required/>
+
+            <label for="password">Nueva contraseña</label>
+            <input type="password" id="password" name="password" placeholder="Deja vacío para no cambiar"/>
+
+            <label for="avatarInput">Avatar (subir nueva imagen)</label>
+            <input type="file" id="avatarInput" accept="image/*" />
+
+            <div class="avatar-container">
+                <img id="avatarPreview" th:src="${user.avatarPath != null} ? @{/avatars/{avatar}(avatar=${user.avatarPath})} : @{/images/default-avatar.png}" 
+                     alt="Vista previa del avatar" />
+            </div>
+
+            <button type="button" id="cropButton">Recortar y Guardar Avatar</button>
+
+            <!-- Campo oculto para enviar la imagen recortada en base64 -->
+            <input type="hidden" name="croppedImage" id="croppedImageInput"/>
+
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+
+        <a th:href="@{/home}" class="cancel-link">Salir</a>
+
+        <div th:if="${success}" class="alert alert-success text-center" th:text="${success}"></div>
+    </div>
+</div>
+
+<!-- Cropper.js -->
+<script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
+
+<script>
+    let cropper;
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+    const cropButton = document.getElementById('cropButton');
+    const croppedImageInput = document.getElementById('croppedImageInput');
+    const form = document.getElementById('editProfileForm');
+
+    avatarInput.addEventListener('change', (event) => {
+        const files = event.target.files;
+        if (files && files.length > 0) {
+            const file = files[0];
+            const url = URL.createObjectURL(file);
+            avatarPreview.src = url;
+
+            if (cropper) {
+                cropper.destroy();
+            }
+
+            avatarPreview.onload = () => {
+                cropper = new Cropper(avatarPreview, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    movable: true,
+                    zoomable: true,
+                    rotatable: false,
+                    scalable: false,
+                    minContainerWidth: 300,
+                    minContainerHeight: 300,
+                });
+            };
+        }
+    });
+
+    cropButton.addEventListener('click', () => {
+        if (!cropper) {
+            alert("Por favor, selecciona una imagen primero.");
+            return;
+        }
+        cropper.getCroppedCanvas({
+            width: 300,
+            height: 300,
+            imageSmoothingQuality: 'high',
+        }).toBlob((blob) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                croppedImageInput.value = reader.result;
+                alert("Imagen recortada lista. Ahora presiona 'Guardar Cambios' para subirla.");
+            };
+        }, 'image/jpeg');
+    });
+</script>
+
+</body>
+</html>

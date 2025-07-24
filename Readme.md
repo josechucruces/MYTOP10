@@ -46,7 +46,7 @@ Este repositorio está pensado como mi **portfolio público** para mostrar mi tr
 
 ## 👤 Autor
 
-**José Cruz**  
+** José Cruces **  
 [GitHub](https://github.com/josechucruces)  
 Estudiante de DAM | Desarrollador junior motivado por el aprendizaje continuo y la práctica real
 

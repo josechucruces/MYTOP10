@@ -11,7 +11,7 @@ La mayoría de estos proyectos han sido realizados en el contexto del Grado Supe
 
 | Nº | Proyecto | Descripción rápida | Tecnologías |
 |----|----------|---------------------|-------------|
-| 1 | `TRATRA` | Mini Strava hecho en Java Springboot y Maven para registrar y analizar actividades deportivas | Java |
+| 1 | `TRATRA` | Mini Strava hecho en Java con Springboot y Maven para registrar y analizar actividades deportivas | Java |
 | 2 | `catalogo_peliculas` | API REST con FastAPI para gestionar un catálogo de películas | Python, FastAPI |
 | 3 | `AgendaEstudiantes` | Aplicación por consola para gestionar estudiantes | Java |
 | 4 | `EDA Titanic` | Análisis exploratorio de datos sobre el Titanic | Python, Pandas, Seaborn |
